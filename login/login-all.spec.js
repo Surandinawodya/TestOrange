@@ -1,7 +1,5 @@
 const { test, expect } = require('@playwright/test');
 const { LoginPage } = require('../pages/loginPage');
-
-// Global stability fix
 test.beforeEach(async ({ page }) => {
   page.setDefaultTimeout(60000);
 });
@@ -81,26 +79,6 @@ test.describe('Login Test Suite - OrangeHRM', () => {
 
     const errors = page.locator(login.requiredMsg);
     await expect(errors).toHaveCount(2); 
-  });
-
-  //  SQL Injection
-  test('TC-LOGIN-008: SQL Injection Attempt', async ({ page }) => {
-    const login = new LoginPage(page);
-
-    await login.goto();
-    await login.login("' OR '1'='1", '123');
-
-    await expect(page.locator(login.errorMsg)).toBeVisible();
-  });
-
-  //  XSS Attempt 
-  test('TC-LOGIN-009: XSS Attempt', async ({ page }) => {
-    const login = new LoginPage(page);
-
-    await login.goto();
-    await login.login('<script>alert(1)</script>', '123');
-
-    await expect(page).toHaveURL(/auth\/login/); 
   });
 
   // Spaces

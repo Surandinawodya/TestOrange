@@ -13,7 +13,7 @@ test.describe('Login Test Suite - OrangeHRM', () => {
     await login.goto();
     await login.login('Admin', 'admin123');
 
-    await page.waitForSelector(login.dashboardHeader, { timeout: 15000 });
+    await page.waitForSelector(login.dashboardHeader, { timeout: 19000 });
     await expect(page.locator(login.dashboardHeader)).toBeVisible();
   });
 

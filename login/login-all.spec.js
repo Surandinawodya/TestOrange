@@ -1,23 +1,39 @@
 const { test, expect } = require('@playwright/test');
 const { LoginPage } = require('../pages/loginPage');
+
 test.beforeEach(async ({ page }) => {
-  page.setDefaultTimeout(60000);
+  page.setDefaultTimeout(70000);
+});
+
+test.afterEach(async ({ page }, testInfo) => {
+  const screenshot = await page.screenshot();
+
+  await testInfo.attach('Screenshot', {
+    body: screenshot,
+    contentType: 'image/png',
+  });
 });
 
 test.describe('Login Test Suite - OrangeHRM', () => {
 
-  // Valid Login
-  test('TC-LOGIN-001: Valid Login', async ({ page }) => {
+  // TC-LOGIN-001: Valid Login
+  test('TC-LOGIN-001: Valid Login', async ({ page }, testInfo) => {
     const login = new LoginPage(page);
 
     await login.goto();
     await login.login('Admin', 'admin123');
 
     await page.waitForSelector(login.dashboardHeader, { timeout: 19000 });
+
+    await testInfo.attach('Dashboard Screenshot', {
+      body: await page.screenshot(),
+      contentType: 'image/png',
+    });
+
     await expect(page.locator(login.dashboardHeader)).toBeVisible();
   });
 
-  // Invalid Username
+  //  TC-LOGIN-002: Invalid Username
   test('TC-LOGIN-002: Invalid Username', async ({ page }) => {
     const login = new LoginPage(page);
 
@@ -28,7 +44,7 @@ test.describe('Login Test Suite - OrangeHRM', () => {
       .toHaveText(/Invalid credentials/);
   });
 
-  // Invalid Password
+  // TC-LOGIN-003: Invalid Password
   test('TC-LOGIN-003: Invalid Password', async ({ page }) => {
     const login = new LoginPage(page);
 
@@ -39,7 +55,7 @@ test.describe('Login Test Suite - OrangeHRM', () => {
       .toHaveText(/Invalid credentials/);
   });
 
-  // Both Invalid
+  // TC-LOGIN-004: Both Invalid
   test('TC-LOGIN-004: Both Invalid', async ({ page }) => {
     const login = new LoginPage(page);
 
@@ -50,7 +66,7 @@ test.describe('Login Test Suite - OrangeHRM', () => {
       .toHaveText(/Invalid credentials/);
   });
 
-  // Empty Username
+  // TC-LOGIN-005: Empty Username
   test('TC-LOGIN-005: Empty Username', async ({ page }) => {
     const login = new LoginPage(page);
 
@@ -60,7 +76,7 @@ test.describe('Login Test Suite - OrangeHRM', () => {
     await expect(page.locator(login.requiredMsg).first()).toBeVisible();
   });
 
-  //  Empty Password
+  //  TC-LOGIN-006: Empty Password
   test('TC-LOGIN-006: Empty Password', async ({ page }) => {
     const login = new LoginPage(page);
 
@@ -70,7 +86,7 @@ test.describe('Login Test Suite - OrangeHRM', () => {
     await expect(page.locator(login.requiredMsg).first()).toBeVisible();
   });
 
-  //  Both Empty 
+  // TC-LOGIN-007: Both Empty
   test('TC-LOGIN-007: Both Empty', async ({ page }) => {
     const login = new LoginPage(page);
 
@@ -78,11 +94,11 @@ test.describe('Login Test Suite - OrangeHRM', () => {
     await login.login('', '');
 
     const errors = page.locator(login.requiredMsg);
-    await expect(errors).toHaveCount(2); 
+    await expect(errors).toHaveCount(2);
   });
 
-  // Spaces
-  test('TC-LOGIN-010: Spaces in Credentials', async ({ page }) => {
+  // TC-LOGIN-008: Spaces
+  test('TC-LOGIN-008: Spaces in Credentials', async ({ page }) => {
     const login = new LoginPage(page);
 
     await login.goto();

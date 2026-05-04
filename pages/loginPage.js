@@ -12,14 +12,19 @@ class LoginPage {
   async goto() {
     await this.page.goto(
       'https://opensource-demo.orangehrmlive.com/web/index.php/auth/login',
-      { timeout: 60000 }
+      { waitUntil: 'domcontentloaded', timeout: 90000 }
     );
+    await this.page.waitForSelector(this.username, { state: 'visible', timeout: 90000 });
   }
 
   async login(user, pass) {
     await this.page.fill(this.username, user);
     await this.page.fill(this.password, pass);
     await this.page.click(this.loginBtn);
+  }
+
+  async waitForDashboard() {
+    await this.page.waitForSelector(this.dashboardHeader, { timeout: 90000 });
   }
 }
 

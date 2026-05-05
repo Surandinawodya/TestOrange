@@ -40,7 +40,7 @@ class OrangeHRMPage {
     await this.page.waitForSelector('.oxd-autocomplete-dropdown');
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
-    await this.page.waitForTimeout(5000);
+    await this.page.waitForTimeout(9000);
   }
   async addEmployee(firstName, lastName) {
     await this.page.click(this.pimMenu);

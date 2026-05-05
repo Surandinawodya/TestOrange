@@ -2,43 +2,47 @@ export class PimPage {
   constructor(page) {
     this.page = page;
 
+    // Navigation
     this.pimMenu = page.getByRole('link', { name: 'PIM' });
 
-    this.employeeListHeader = page.locator('h5:has-text("Employee Information")');
+    // Header
+    this.employeeListHeader = page.getByRole('heading', { name: /Employee/i });
 
-    this.employeeName = page.locator('input[placeholder="Type for hints..."]').first();
-    this.employeeId = page.locator('input[class*="oxd-input"]').nth(1);
+    // ✅ FIX: Target Employee Name field specifically
+    this.employeeName = page
+      .locator('label:has-text("Employee Name")')
+      .locator('xpath=following::input[@placeholder="Type for hints..."][1]');
 
+    // Buttons
     this.searchBtn = page.getByRole('button', { name: 'Search' });
     this.resetBtn = page.getByRole('button', { name: 'Reset' });
-    this.addBtn = page.getByRole('button', { name: 'Add' });
+    this.addEmployeeBtn = page.getByRole('button', { name: 'Add' });
 
-    this.tableRows = page.locator('.oxd-table-body .oxd-table-row');
-    this.noRecordsText = page.locator('.oxd-text--span:has-text("No Records Found")');
+    // Table
+    this.rows = page.locator('.oxd-table-card');
+    this.noRecords = page.locator('text=No Records Found');
 
-    this.addEmployeeHeader = page.locator('h6:has-text("Add Employee")');
-
-    this.loader = page.locator('.oxd-form-loader');
+    // Loader
+    this.loader = page.locator('.oxd-loading-spinner');
   }
 
   async waitForLoader() {
-    await this.loader.waitFor({ state: 'hidden', timeout: 60000 }).catch(() => {});
+    await this.loader.waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
   }
 
   async navigateToPIM() {
     await this.pimMenu.click();
+
+    await this.page.waitForURL(/viewEmployeeList/, { timeout: 20000 });
     await this.waitForLoader();
-    await this.employeeListHeader.waitFor({ state: 'visible' });
+
+    await this.employeeListHeader.first().waitFor({ state: 'visible' });
   }
 
   async searchEmployeeByName(name) {
     await this.employeeName.fill(name);
     await this.searchBtn.click();
     await this.waitForLoader();
-    await Promise.race([
-      this.tableRows.first().waitFor({ state: 'visible' }).catch(() => {}),
-      this.noRecordsText.waitFor({ state: 'visible' }).catch(() => {})
-    ]);
   }
 
   async resetSearch() {
@@ -47,16 +51,14 @@ export class PimPage {
   }
 
   async clickAddEmployee() {
-    await this.addBtn.click();
-    await this.addEmployeeHeader.waitFor();
+    await this.addEmployeeBtn.click();
   }
 
   async getRowCount() {
-    await this.waitForLoader();
-    return await this.tableRows.count();
+    return await this.rows.count();
   }
 
   async isNoRecordsFound() {
-    return await this.noRecordsText.isVisible().catch(() => false);
+    return await this.noRecords.isVisible().catch(() => false);
   }
 }

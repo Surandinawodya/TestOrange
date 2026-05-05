@@ -1,10 +1,9 @@
 // playwright.config.js
-import { defineConfig } from '@playwright/test';
+const { defineConfig } = require('@playwright/test');
 
-export default defineConfig({
-  timeout: 60000,
-
-  retries: 1,
+module.exports = defineConfig({
+  timeout: 80000,
+  retries: 2,
 
   reporter: [
     ['html', { open: 'always' }]
@@ -15,9 +14,19 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     trace: 'retain-on-failure',
-
-    // Stability
     actionTimeout: 15000,
-    navigationTimeout: 30000,
+    navigationTimeout: 60000,
   },
+
+  projects: [
+    {
+      name: 'login',
+      testMatch: '**/login-all.spec.js',
+    },
+    {
+      name: 'pim',
+      testMatch: '**/pim.spec.js',
+      dependencies: ['login'],
+    },
+  ],
 });

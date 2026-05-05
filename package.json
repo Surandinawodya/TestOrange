@@ -4,7 +4,8 @@
   "description": "",
   "main": "login.spec.js",
   "scripts": {
-      "test": "playwright test"
+      "test": "playwright test",
+      "test:suites": "node suites/runSuites.js"
   },
   "keywords": [],
   "author": "",

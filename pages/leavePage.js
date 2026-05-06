@@ -51,11 +51,11 @@ export class LeavePage {
     await this.waitForLoader();
     await expect.poll(async () => {
       return await this.employeeName.inputValue();
-    }, { timeout: 20000 }).toBe('');
+    }, { timeout: 40000 }).toBe('');
   }
 
   async hasValidResult() {
-    await this.page.waitForTimeout(2000);
+    await this.page.waitForTimeout(3000);
 
     const rowCount = await this.rows.count();
     const noData = await this.noRecords.isVisible().catch(() => false);

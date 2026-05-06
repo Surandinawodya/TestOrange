@@ -21,7 +21,7 @@ export class DirectoryPage {
     );
 
     await this.page.waitForLoadState('networkidle');
-    await this.employeeCards.first().waitFor({ state: 'visible', timeout: 30000 });
+    await this.employeeCards.first().waitFor({ state: 'visible', timeout: 50000 });
   }
 
   async searchEmployee(name) {

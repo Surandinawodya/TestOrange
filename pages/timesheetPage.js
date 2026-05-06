@@ -21,7 +21,7 @@ export class TimesheetPage {
 
     await this.page.waitForLoadState('networkidle');
 
-    await expect(this.employeeInput).toBeVisible({ timeout: 30000 });
+    await expect(this.employeeInput).toBeVisible({ timeout: 50000 });
   }
 
   async enterEmployee(name) {

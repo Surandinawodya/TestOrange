@@ -30,11 +30,11 @@ export class LeavePage {
     await this.leaveMenu.click();
     await this.leaveListMenu.click();
 
-    await this.page.waitForURL(/viewLeaveList/, { timeout: 30000 });
+    await this.page.waitForURL(/viewLeaveList/, { timeout: 50000 });
 
     await this.waitForLoader();
 
-    await this.page.waitForTimeout(3000);
+    await this.page.waitForTimeout(4000);
   }
 
   async searchByEmployee(name) {

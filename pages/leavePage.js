@@ -34,7 +34,7 @@ export class LeavePage {
 
     await this.waitForLoader();
 
-    await this.page.waitForTimeout(2000);
+    await this.page.waitForTimeout(3000);
   }
 
   async searchByEmployee(name) {
@@ -42,7 +42,7 @@ export class LeavePage {
     await this.searchBtn.click();
 
     await this.waitForLoader();
-    await this.page.waitForTimeout(2000);
+    await this.page.waitForTimeout(4000);
   }
 
   async resetSearch() {

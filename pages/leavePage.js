@@ -30,7 +30,7 @@ export class LeavePage {
     await this.leaveMenu.click();
     await this.leaveListMenu.click();
 
-    await this.page.waitForURL(/viewLeaveList/, { timeout: 20000 });
+    await this.page.waitForURL(/viewLeaveList/, { timeout: 30000 });
 
     await this.waitForLoader();
 

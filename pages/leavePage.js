@@ -4,22 +4,21 @@ export class LeavePage {
   constructor(page) {
     this.page = page;
 
-    // Navigation
+  
     this.leaveMenu = page.getByRole('link', { name: 'Leave' });
     this.leaveListMenu = page.getByRole('link', { name: 'Leave List' });
 
-    // Filters
+ 
     this.employeeName = page.locator('input[placeholder="Type for hints..."]').first();
 
-    // Actions
+  
     this.searchBtn = page.getByRole('button', { name: 'Search' });
     this.resetBtn = page.getByRole('button', { name: 'Reset' });
 
-    // Results
+   
     this.rows = page.locator('.oxd-table-card');
     this.noRecords = page.locator('text=No Records Found');
 
-    // Loader
     this.loader = page.locator('.oxd-loading-spinner');
   }
 

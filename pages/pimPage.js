@@ -2,27 +2,20 @@ export class PimPage {
   constructor(page) {
     this.page = page;
 
-    // Navigation
+  
     this.pimMenu = page.getByRole('link', { name: 'PIM' });
 
-    // Header
     this.employeeListHeader = page.getByRole('heading', { name: /Employee/i });
-
-    // ✅ FIX: Target Employee Name field specifically
     this.employeeName = page
       .locator('label:has-text("Employee Name")')
       .locator('xpath=following::input[@placeholder="Type for hints..."][1]');
 
-    // Buttons
+   
     this.searchBtn = page.getByRole('button', { name: 'Search' });
     this.resetBtn = page.getByRole('button', { name: 'Reset' });
     this.addEmployeeBtn = page.getByRole('button', { name: 'Add' });
-
-    // Table
     this.rows = page.locator('.oxd-table-card');
     this.noRecords = page.locator('text=No Records Found');
-
-    // Loader
     this.loader = page.locator('.oxd-loading-spinner');
   }
 

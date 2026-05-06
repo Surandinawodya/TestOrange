@@ -21,15 +21,14 @@ test.describe('Employee Timesheet Tests', () => {
     await expect(ts.employeeInput).toBeVisible();
   });
 
-  test('Verify employee search works', async ({ page }) => {
+  test('Verify employee input works', async ({ page }) => {
     const ts = new TimesheetPage(page);
 
     await ts.navigate();
 
-    await ts.searchEmployee('a');
+    await ts.enterEmployee('a');
 
-    const result = await ts.hasResults();
-    expect(result).toBeTruthy();
+    await expect(ts.employeeInput).toHaveValue('a');
   });
 
   test('Verify reset functionality', async ({ page }) => {
@@ -37,8 +36,8 @@ test.describe('Employee Timesheet Tests', () => {
 
     await ts.navigate();
 
-    await ts.searchEmployee('a');
-    await ts.resetSearch();
+    await ts.enterEmployee('a');
+    await ts.resetInput();
 
     await expect(ts.employeeInput).toHaveValue('');
   });

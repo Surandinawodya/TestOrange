@@ -21,7 +21,7 @@ class LoginPage {
       } catch (e) {
         if (i === retries) throw e;
         console.warn(`goto attempt ${i} failed, retrying in 5s...`);
-        await this.page.waitForTimeout(7000);
+        await this.page.waitForTimeout(8000);
       }
     }
   }

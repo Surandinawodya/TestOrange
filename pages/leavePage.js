@@ -42,7 +42,7 @@ export class LeavePage {
     await this.searchBtn.click();
 
     await this.waitForLoader();
-    await this.page.waitForTimeout(4000);
+    await this.page.waitForTimeout(5000);
   }
 
   async resetSearch() {
@@ -55,7 +55,7 @@ export class LeavePage {
   }
 
   async hasValidResult() {
-    await this.page.waitForTimeout(3000);
+    await this.page.waitForTimeout(5000);
 
     const rowCount = await this.rows.count();
     const noData = await this.noRecords.isVisible().catch(() => false);

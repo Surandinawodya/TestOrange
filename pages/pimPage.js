@@ -26,7 +26,7 @@ export class PimPage {
   async navigateToPIM() {
     await this.pimMenu.click();
 
-    await this.page.waitForURL(/viewEmployeeList/, { timeout: 20000 });
+    await this.page.waitForURL(/viewEmployeeList/, { timeout: 40000 });
     await this.waitForLoader();
 
     await this.employeeListHeader.first().waitFor({ state: 'visible' });

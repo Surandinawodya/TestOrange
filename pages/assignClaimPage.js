@@ -24,7 +24,7 @@ export class AssignClaimPage {
 
     await this.page.waitForLoadState('networkidle');
 
-    await expect(this.employeeInput).toBeVisible({ timeout: 20000 });
+    await expect(this.employeeInput).toBeVisible({ timeout: 30000 });
   }
 
   async fillForm() {

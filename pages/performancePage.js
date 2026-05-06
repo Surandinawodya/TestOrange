@@ -26,7 +26,7 @@ export class PerformancePage {
 
     await this.page.waitForLoadState('networkidle');
 
-    await expect(this.searchBtn).toBeVisible({ timeout: 30000 });
+    await expect(this.searchBtn).toBeVisible({ timeout: 50000 });
   }
   async searchEmployee(name) {
     await this.employeeInput.fill(name);

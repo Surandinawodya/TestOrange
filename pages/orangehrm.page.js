@@ -1,4 +1,4 @@
-class OrangeHRMPage {
+export class OrangeHRMPage {
   constructor(page) {
     this.page = page;
 
@@ -80,5 +80,3 @@ class OrangeHRMPage {
     await this.waitForLoader();
   }
 }
-
-module.exports = { OrangeHRMPage };

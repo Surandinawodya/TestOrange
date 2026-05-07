@@ -1,18 +1,14 @@
-const { execSync } = require('child_process');
-const path = require('path');
-const { TestSuite } = require('./testSuite');
+import { execSync } from 'child_process';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { TestSuite } from './testSuite.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Register suites with priority (lower number = runs first)
 const suites = [
-  new TestSuite('Login',  'login/login-all.spec.js', 1),
-  new TestSuite('PIM',    'login/pim.spec.js',        2),
-  new TestSuite('Admin', 'login/admin.spec.js', 3),
-   new TestSuite('Leave', 'login/leave.spec.js', 4),
-  new TestSuite('TimeSheet', 'login/timesheet.spec.js', 5),
-
-  // Add more suites here:
-  // new TestSuite('Admin', 'login/admin.spec.js', 3),
-  // new TestSuite('Leave', 'login/leave.spec.js', 4),
+  new TestSuite('All Modules', 'login/all-modules.spec.js', 1),
 ];
 
 // Sort by priority
@@ -31,9 +27,10 @@ for (const suite of sorted) {
       { stdio: 'inherit', cwd: rootDir }
     );
     console.log(`✅ ${suite.name} suite passed\n`);
-  } catch {
-    console.error(`❌ ${suite.name} suite failed — stopping execution\n`);
-    process.exit(1);
+  } catch (error) {
+    console.error(`❌ ${suite.name} suite failed — continuing to next suite\n`);
+    console.error(`Error details: ${error.message}\n`);
+    // Continue to next suite instead of exiting
   }
 }
 

@@ -1,7 +1,7 @@
 // playwright.config.js
-const { defineConfig } = require('@playwright/test');
+import { defineConfig } from '@playwright/test';
 
-module.exports = defineConfig({
+export default defineConfig({
   timeout: 80000,
   retries: 2,
 
@@ -11,9 +11,9 @@ module.exports = defineConfig({
 
   use: {
     headless: false,
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
-    trace: 'retain-on-failure',
+    screenshot: 'on',
+    video: 'on',
+    trace: 'on',
     actionTimeout: 15000,
     navigationTimeout: 60000,
   },
@@ -21,7 +21,7 @@ module.exports = defineConfig({
   projects: [
     {
       name: 'login',
-      testMatch: '**/login-all.spec.js',
+      testMatch: '**/login/*.spec.js',
     },
     {
       name: 'pim',

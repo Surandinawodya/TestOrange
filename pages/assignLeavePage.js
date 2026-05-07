@@ -32,7 +32,7 @@ export class AssignLeavePage {
 
     await this.page.waitForLoadState('networkidle');
 
-    await expect(this.employeeInput).toBeVisible({ timeout: 30000 });
+    await expect(this.employeeInput).toBeVisible({ timeout:   30000 });
   }
 
 
